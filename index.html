@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>What Day Is It?</title>
+
+    <style>
+        html,
+        body {
+            text-align: center;
+            font-size: 24px;
+        }
+
+        button {
+            font-size: 16px;
+            border-radius: 4px;
+            padding: 4px 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>What Day Is It?</h1>
+
+    <p>Today is <span id="today-is"></span></p>
+
+    <p>But it feels like <span id="feels-like"></span></p>
+
+    <p><button type="button" id="change-day" class="indigo">I Don't Like This Day</button></p>
+
+    <script>
+        let days = {
+            Sunday: {
+                backgroundColor: '#9400D3',
+                textColor: '#FFF',
+            },
+            Monday: {
+                backgroundColor: '#4B0082',
+                textColor: '#FFF',
+            },
+            Tuesday: {
+                backgroundColor: '#0000FF',
+                textColor: '#FFF',
+            },
+            Wednesday: {
+                backgroundColor: '#00FF00',
+                textColor: '#000',
+            },
+            Thursday: {
+                backgroundColor: '#FFFF00',
+                textColor: '#000',
+            },
+            Friday: {
+                backgroundColor: '#FF7F00',
+                textColor: '#000',
+            },
+            Saturday: {
+                backgroundColor: '#FF0000',
+                textColor: '#FFF',
+            },
+        }
+
+        let $changeDayButton = document.getElementById('change-day');
+
+        function pickRandomDay() {
+            let keys = Object.keys(days);
+            let index = Math.floor(Math.random() * 7);
+            let selectedDay = days[keys[index]];
+            document.getElementById('feels-like').textContent = keys[index];
+            $changeDayButton.style.backgroundColor = selectedDay.backgroundColor;
+            $changeDayButton.style.color = selectedDay.textColor;
+        }
+        $changeDayButton.addEventListener('click', pickRandomDay);
+
+        function setToday() {
+            let date = new Date();
+            let keys = Object.keys(days);
+            document.getElementById('today-is').textContent = keys[date.getDay()];
+        }
+
+        setToday();
+        pickRandomDay();
+    </script>
+</body>
+</html>
